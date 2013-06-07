@@ -1,0 +1,26 @@
+{
+  "name": "waiting",
+  "title": "Flexible loading indication",
+  "description": "The best jQuery plugin ever.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/Novascreen/waiting",
+  "author": {
+    "name": "Thomas Hermann",
+    "email": "novascreen@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Novascreen/waiting.git"
+  },
+  "bugs": "https://github.com/Novascreen/waiting/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/Novascreen/waiting/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "1.4.2"
+  },
+  "keywords": []
+}
