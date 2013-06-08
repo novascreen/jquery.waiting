@@ -46,13 +46,16 @@ module.exports = function(grunt) {
           jshintrc: 'src/.jshintrc'
         },
         src: ['src/**/*.js']
-      },
-      test: {
+      }
+    },
+    compass: {
+      dist: {
         options: {
-          jshintrc: 'test/.jshintrc'
-        },
-        src: ['test/**/*.js']
-      },
+          sassDir: 'src',
+          cssDir: 'dist',
+          noLineComments: true
+        }
+      }
     },
     watch: {
       gruntfile: {
@@ -61,12 +64,12 @@ module.exports = function(grunt) {
       },
       src: {
         files: '<%= jshint.src.src %>',
-        tasks: ['jshint:src']
+        tasks: ['jshint:src', 'concat']
       },
-      test: {
-        files: '<%= jshint.test.src %>',
-        tasks: ['jshint:test']
-      },
+      compass: {
+        files: '<%= compass.dist.options.sassDir %>/waiting.scss',
+        tasks: ['compass']
+      }
     },
   });
 
@@ -75,9 +78,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'clean', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'clean', 'compass', 'concat', 'uglify']);
 
 };

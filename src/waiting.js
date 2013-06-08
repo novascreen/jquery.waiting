@@ -7,65 +7,97 @@
  */
 
 (function ($, window, document, undefined) {
+ 'use strict';
 
-  // undefined is used here as the undefined global
-  // variable in ECMAScript 3 and is mutable (i.e. it can
-  // be changed by someone else). undefined isn't really
-  // being passed in so we can ensure that its value is
-  // truly undefined. In ES5, undefined can no longer be
-  // modified.
-
-  // window and document are passed through as local
-  // variables rather than as globals, because this (slightly)
-  // quickens the resolution process and can be more
-  // efficiently minified (especially when both are
-  // regularly referenced in your plugin).
-
-  // Create the defaults once
   var waiting = 'waiting',
     defaults = {
+      waitingClass: waiting,
       empty: false,
+      emptyClass: 'empty',
       position: "center",
-      modal: true,
-      fillWindow: false
+      overlay: true,
+      fixed: false
     };
-
-  // The actual plugin constructor
 
   function Plugin(element, options) {
     this.element = element;
+    this.$el = $(element);
 
     this.options = $.extend({}, defaults, options);
 
     this._defaults = defaults;
     this._name = waiting;
+    this._addPositionRelative = false;
 
     this.init();
   }
 
+
   Plugin.prototype = {
 
     init: function () {
-      this.$indicator = $('<div class="waiting-indicator" />');
-      this.$indicator = $('<div class="waiting-indicator" />');
-      // Place initialization logic here
-      // You already have access to the DOM element and
-      // the options via the instance, e.g. this.element
-      // and this.options
-      // you can add more functions like the one below and 
-      // call them like so: this.yourOtherFunction(this.element, this.options).
+      this.$container = $('<div class="waiting-container" />');
+      this.$indicator = $('<div class="waiting-indicator" />').appendTo(this.$container);
+
+      if (this.options.overlay) {
+        this.$container.addClass('overlay');
+        this.$overlay = $('<div class="waiting-overlay" />').appendTo(this.$container);
+      }
+
+      if (this.options.overlay && this.options.position !== 'custom') {
+        this.$indicator.addClass(this.options.position);
+      }
+
+      if (this.options.fixed) {
+        this.$overlay.addClass('fixed');
+      }
+
+      if(this.element.style.position === '') {
+        this._addPositionRelative = true;
+      }
+
+      this.show();
     },
+
 
     show: function () {
-      
-      
+      if (this.options.empty) {
+        this.$el.empty().addClass(this.options.emptyClass);
+      }
+
+      if (this._addPositionRelative) {
+        this.element.style.position = 'relative';
+      }
+
+      this.$el.addClass(this.options.waitingClass);
+      this.$container.appendTo(this.$el).addClass('show');
     },
+
 
     hide: function () {
+      this.$container.removeClass('show');
+      this.$container.detach();
+      this.$el.removeClass(this.options.waitingClass);
 
+      if (this.options.empty) {
+        this.$el.removeClass(this.options.emptyClass);
+      }
+
+      if (this._addPositionRelative) {
+        this.element.style.position = '';
+      }
     },
 
-    over: function () {
+
+    again: function (options) {
+      if (typeof options !== 'undefined') {
+        this.options = $.extend({}, this.options, options);
+      }
+      this.show();
+    },
+
+
+    done: function () {
       this.hide();
     }
   };
@@ -74,19 +106,27 @@
   // preventing against multiple instantiations
   $.fn[waiting] = function (options) {
     return this.each(function () {
-      var plugin;
+      var plugin, method, expose;
       if (!$.data(this, 'plugin_' + waiting)) {
         $.data(this, 'plugin_' + waiting, new Plugin(this, options));
       }
       else {
         plugin = $.data(this, 'plugin_' + waiting);
+        method = 'again';
+        expose = {
+          again: true,
+          done: true
+        };
 
-        if (typeof options === 'string' && options in plugin) {
-          plugin[options].call(plugin);
+        if (typeof options === 'string') {
+          if (!expose[options]) {
+            return false;
+          }
+          method = options;
+          options = null;
         }
-        else {
-          plugin.show.call(plugin);
-        }
+
+        plugin[method].call(plugin, options);
       }
     });
   };

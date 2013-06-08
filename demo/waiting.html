@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>jQuery Waiting</title>
+  <link rel="stylesheet" type="text/css" href="../dist/waiting.css">
+
+  <style type="text/css">
+    body {
+      margin: 50px;
+    }
+    .content {
+      margin: 20px 0 40px;
+      max-width: 500px;
+    }
+    button.waiting-done {
+      display: none;
+    }
+  </style>
+
+
+  <script src="../libs/jquery/jquery.js"></script>
+  <script src="../dist/jquery.waiting.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+      var content = $('.content').first().html();
+      $('button').on('click', function () {
+        $(this).toggle().siblings('button').toggle();
+
+        if ($(this).hasClass('waiting-done')) {
+          $(this).siblings('.content').waiting('done')
+              .html(content.substring(0,Math.random() * content.length) + '...');
+        }
+      });
+    });
+  </script>
+</head>
+
+<body>
+
+  <div id="demo-basic">
+    <button type="button" class="waiting">► start waiting</button>
+    <button type="button" class="waiting-done">■ waiting done</button>
+    <pre>$('#demo-basic .content').waiting();</pre>
+    <div class="content">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </div>
+  </div>
+  <script type="text/javascript">
+    $('#demo-basic button.waiting').on('click', function () {
+      $(this).siblings('.content').waiting();
+    });
+  </script>
+
+
+  <div id="demo-overlay-false">
+    <button type="button" class="waiting">► start waiting</button>
+    <button type="button" class="waiting-done">■ waiting done</button>
+    <pre>$('#demo-overlay-false .content').waiting({ overlay: false });</pre>
+    <div class="content">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </div>
+  </div>
+  <script type="text/javascript">
+    $('#demo-overlay-false button.waiting').on('click', function () {
+      $(this).siblings('.content').waiting({ overlay: false });
+    });
+  </script>
+
+
+  <div id="demo-empty">
+    <button type="button" class="waiting">► start waiting</button>
+    <button type="button" class="waiting-done">■ waiting done</button>
+    <pre>$('#demo-empty .content').waiting({ empty: true });</pre>
+    <div class="content">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </div>
+  </div>
+  <script type="text/javascript">
+    $('#demo-empty button.waiting').on('click', function () {
+      $(this).siblings('.content').waiting({ empty: true });
+    });
+  </script>
+</body>
+</html>

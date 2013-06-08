@@ -1,6 +1,6 @@
-# Flexible loading indication
+# jQuery Waiting
 
-The best jQuery plugin ever.
+jQuery Waiting provides a way to add and remove a loading indication (e.g. an AJAX spinner gif) with some useful options like positioning, emptying the element when added and adding it as an overlay inside the element or over the entire page.
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
@@ -11,11 +11,15 @@ Download the [production version][min] or the [development version][max].
 In your web page:
 
 ```html
+<link rel="stylesheet" type="text/css" href="dist/waiting.css">
 <script src="jquery.js"></script>
 <script src="dist/jquery.waiting.min.js"></script>
 <script>
 jQuery(function($) {
   $('#content').waiting();
+
+  // and when done:
+  $('#content').waiting('done');
 });
 </script>
 ```
