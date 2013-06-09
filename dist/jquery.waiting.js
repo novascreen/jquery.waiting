@@ -1,4 +1,4 @@
-/*! jQuery Waiting - v0.1.0 - 2013-06-08
+/*! jQuery Waiting - v0.1.1 - 2013-06-08
 * https://github.com/Novascreen/jquery.waiting
 * Copyright (c) 2013 Thomas Hermann; Licensed MIT */
 (function ($, window, document, undefined) {

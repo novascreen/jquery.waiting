@@ -2,7 +2,7 @@
   "name": "waiting",
   "title": "jQuery Waiting",
   "description": "jQuery Waiting provides a way to add and remove a loading indication (e.g. an AJAX spinner gif) with some useful options like positioning and adding it as an overlay inside the element or over the entire page.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/Novascreen/jquery.waiting",
   "author": {
     "name": "Thomas Hermann",
@@ -20,7 +20,7 @@
     }
   ],
   "dependencies": {
-    "jquery": "1.4.2"
+    "jquery": "1.7.0"
   },
   "keywords": []
 }
