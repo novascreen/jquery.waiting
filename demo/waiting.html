@@ -10,7 +10,7 @@
       margin: 50px;
     }
     .content {
-      margin: 20px 0 40px;
+      margin-bottom: 50px;
       max-width: 500px;
     }
     button.waiting-done {
@@ -42,7 +42,11 @@
   <div id="demo-basic">
     <button type="button" class="waiting">► start waiting</button>
     <button type="button" class="waiting-done">■ waiting done</button>
-    <pre>$('#demo-basic .content').waiting();</pre>
+    <pre>
+// Default behaviour is a loading spinner positioned absolute, centered and with an overlay.
+
+$('#demo-basic .content').waiting();
+    </pre>
     <div class="content">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -58,11 +62,44 @@
     });
   </script>
 
+  <div id="demo-position">
+    <button type="button" class="waiting">► start waiting</button>
+    <button type="button" class="waiting-done">■ waiting done</button>
+    <pre>
+// You can position the indicator/spinner by setting position to one of the following values:
+// 'center',
+// 'top left', 'top center', 'top right',
+// 'center left', 'center right',
+// 'bottom left', 'bottom center' or 'bottom right'
+// If you don't want to use the predefined CSS classes you can set position to 'custom',
+// in that case you have to take care of the CSS yourself.
+
+$('#demo-position .content').waiting({ position: 'top left' });
+    </pre>
+    <div class="content">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </div>
+  </div>
+  <script type="text/javascript">
+    $('#demo-position button.waiting').on('click', function () {
+      $(this).siblings('.content').waiting({ position: 'top left' });
+    });
+  </script>
+
 
   <div id="demo-overlay-false">
     <button type="button" class="waiting">► start waiting</button>
     <button type="button" class="waiting-done">■ waiting done</button>
-    <pre>$('#demo-overlay-false .content').waiting({ overlay: false });</pre>
+    <pre>
+// You can simply append the indicator by setting overlay to false
+
+$('#demo-overlay-false .content').waiting({ overlay: false });
+    </pre>
     <div class="content">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -79,10 +116,14 @@
   </script>
 
 
-  <div id="demo-empty">
+  <div id="demo-fixed">
     <button type="button" class="waiting">► start waiting</button>
     <button type="button" class="waiting-done">■ waiting done</button>
-    <pre>$('#demo-empty .content').waiting({ empty: true });</pre>
+    <pre>
+// By setting fixed to true you can expand the overlay over the whole page
+
+$('#demo-overlay-false .content').waiting({ fixed: true });
+    </pre>
     <div class="content">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -93,8 +134,12 @@
     </div>
   </div>
   <script type="text/javascript">
-    $('#demo-empty button.waiting').on('click', function () {
-      $(this).siblings('.content').waiting({ empty: true });
+    $('#demo-fixed button.waiting').on('click', function () {
+      var that = this;
+      $(this).siblings('.content').waiting({ fixed: true });
+      setTimeout(function() {
+        $(that).siblings('button').click();
+      }, 3000);
     });
   </script>
 </body>

@@ -1,5 +1,5 @@
 /*! jQuery Waiting - v0.1.0 - 2013-06-08
-* https://github.com/Novascreen/waiting
+* https://github.com/Novascreen/jquery.waiting
 * Copyright (c) 2013 Thomas Hermann; Licensed MIT */
 (function ($, window, document, undefined) {
  'use strict';
@@ -7,8 +7,6 @@
   var waiting = 'waiting',
     defaults = {
       waitingClass: waiting,
-      empty: false,
-      emptyClass: 'empty',
       position: "center",
       overlay: true,
       fixed: false
@@ -31,7 +29,7 @@
   Plugin.prototype = {
 
     init: function () {
-      this.$container = $('<div class="waiting-container" />');
+      this.$container = $('<div class="waiting-container hidden" />');
       this.$indicator = $('<div class="waiting-indicator" />').appendTo(this.$container);
 
       if (this.options.overlay) {
@@ -44,7 +42,7 @@
       }
 
       if (this.options.fixed) {
-        this.$overlay.addClass('fixed');
+        this.$container.addClass('fixed');
       }
 
       if(this.element.style.position === '') {
@@ -56,27 +54,20 @@
 
 
     show: function () {
-      if (this.options.empty) {
-        this.$el.empty().addClass(this.options.emptyClass);
-      }
 
       if (this._addPositionRelative) {
         this.element.style.position = 'relative';
       }
 
       this.$el.addClass(this.options.waitingClass);
-      this.$container.appendTo(this.$el).addClass('show');
+      this.$container.appendTo(this.$el).removeClass('hidden');
     },
 
 
     hide: function () {
-      this.$container.removeClass('show');
+      this.$container.addClass('hidden');
       this.$container.detach();
       this.$el.removeClass(this.options.waitingClass);
-
-      if (this.options.empty) {
-        this.$el.removeClass(this.options.emptyClass);
-      }
 
       if (this._addPositionRelative) {
         this.element.style.position = '';
@@ -84,10 +75,7 @@
     },
 
 
-    again: function (options) {
-      if (typeof options !== 'undefined') {
-        this.options = $.extend({}, this.options, options);
-      }
+    again: function () {
       this.show();
     },
 

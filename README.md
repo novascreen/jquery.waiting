@@ -1,12 +1,12 @@
 # jQuery Waiting
 
-jQuery Waiting provides a way to add and remove a loading indication (e.g. an AJAX spinner gif) with some useful options like positioning, emptying the element when added and adding it as an overlay inside the element or over the entire page.
+jQuery Waiting provides a way to add and remove a loading indication (e.g. an AJAX spinner gif) with some useful options like positioning and adding it as an overlay inside the element or over the entire page.
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
 
-[min]: https://raw.github.com/Novascreen/waiting/master/dist/jquery.waiting.min.js
-[max]: https://raw.github.com/Novascreen/waiting/master/dist/jquery.waiting.js
+[min]: https://raw.github.com/Novascreen/jquery.waiting/master/dist/jquery.waiting.min.js
+[max]: https://raw.github.com/Novascreen/jquery.waiting/master/dist/jquery.waiting.js
 
 In your web page:
 
