@@ -24,11 +24,8 @@ jQuery(function($) {
 </script>
 ```
 
-## Documentation
-_(Coming soon)_
-
-## Examples
-_(Coming soon)_
+## Examples & Documentation
+Check out the `demo` folder for examples and a description of the plugin's options.
 
 ## Release History
 _(Nothing yet)_
